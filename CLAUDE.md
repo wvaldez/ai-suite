@@ -47,3 +47,6 @@ Create a `.md` file in `skills/` with the required frontmatter. Then run the rel
 ## Adding a new AI assistant target
 
 Create a `sync/sync-to-<assistant>.md` file that describes how to read `skills/` and write the target format. Follow `sync/sync-to-copilot.md` as a reference.
+
+<!-- sync/ and config/copilot.md are meta-skills for repo maintainers.
+     They are not needed in normal development sessions — do not load them proactively. -->

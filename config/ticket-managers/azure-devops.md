@@ -43,21 +43,6 @@ branch_type_map:
 
 ---
 
-## MCP tool reference
-
-All operations use the Azure DevOps MCP server. The MCP server must be connected before running any skill.
-
-| Operation | MCP action |
-|---|---|
-| Read work item | `get_work_item` with `id: {TICKET_ID}` |
-| Assign work item | `update_work_item` with `assignedTo: {USERNAME}` |
-| Move to In Progress | `update_work_item` with `state: "{in_progress_state}"` |
-| Move to In Review | `update_work_item` with `state: "{in_review_state}"` |
-| Add comment | `add_work_item_comment` with `text: "{TEXT}"` |
-| List work items | `list_work_items` with `project: "{project}"` |
-
----
-
 ## Notes
 
 - Set `enabled: true` to activate. Only one ticket manager should be enabled at a time.

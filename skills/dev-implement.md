@@ -1,6 +1,8 @@
 ---
 name: dev-implement
 description: Execute the implementation plan — code changes, tests, local validation, commit, push, and PR creation
+disable-model-invocation: true
+allowed-tools: Bash(git *) Bash(dotnet *) Bash(npm *) Bash(npx *) Bash(mvn *) Bash(./gradlew *) Bash(pytest *) Bash(go *) Bash(cargo *) Bash(gh *) Bash(acli *) Bash(python *) Bash(tsc *) Read Edit Write
 ---
 
 Execute the implementation defined in `PLAN.md`. This skill picks up where `dev-start` left off: it reads the plan, applies all code changes, validates compilation and tests at each stage, guides local testing, then commits, pushes, and opens a PR.
@@ -28,21 +30,11 @@ Work through the **Implementation Changes** table in `PLAN.md` one concern at a 
 
 1. State which files you are about to touch and what you will do.
 2. Apply the changes.
-3. After each group, run a compilation/build check (see below) and fix any errors before moving to the next group.
+3. After each group, run a compilation/build check and fix any errors before moving to the next group.
 
 Do not batch all changes at once. Complete one concern, validate, then continue.
 
-### Compilation check by ecosystem
-
-| Ecosystem | Command |
-|---|---|
-| .NET / C# | `dotnet build` |
-| Node / TypeScript | `tsc --noEmit` or `npm run build` |
-| Java / Maven | `mvn compile -q` |
-| Java / Gradle | `./gradlew compileJava` |
-| Python | `python -m py_compile **/*.py` |
-| Go | `go build ./...` |
-| Rust | `cargo check` |
+For build commands by ecosystem, load `skills/build-ref.md` from the ai-skills repo.
 
 If no build command is detected, ask the user: "What command builds this project?"
 
@@ -62,18 +54,7 @@ Using the **Unit Tests to Add** table from `PLAN.md`, create test files or add t
 
 ## Step 4 — Run the full test suite
 
-Run all tests (existing + new):
-
-| Ecosystem | Command |
-|---|---|
-| .NET | `dotnet test` |
-| Node / Jest | `npm test` or `npx jest` |
-| Node / Vitest | `npx vitest run` |
-| Java / Maven | `mvn test -q` |
-| Java / Gradle | `./gradlew test` |
-| Python / pytest | `pytest` |
-| Go | `go test ./...` |
-| Rust | `cargo test` |
+Run all tests (existing + new). For test runner commands by ecosystem, refer to `skills/build-ref.md` from the ai-skills repo.
 
 If the test command is not clear, ask the user.
 
@@ -89,16 +70,6 @@ Once all tests pass, report:
 ## Step 5 — Local testing
 
 Present the **Testing Strategy** section from `PLAN.md` to the user as a checklist. For each manual step listed, provide the exact command or action the user should take.
-
-If the strategy references starting a local server or application, provide the command:
-
-```bash
-# examples — use the project's actual command
-npm run dev
-dotnet run
-./gradlew bootRun
-python manage.py runserver
-```
 
 Then tell the user:
 > "The build is clean and all tests pass. Please run through the local testing checklist above and confirm when you're done — or let me know if you find any issues."
@@ -187,28 +158,11 @@ If `gh` is not authenticated, tell the user: `gh auth login` and wait.
 
 ## Step 9 — Move the ticket to In Review
 
-Using the active ticket manager config (`{TM_IN_REVIEW}`):
+Read `config/ticket-managers/` from the ai-skills repo. Find the file with `enabled: true` and resolve `{TM_TOOL}` and `{TM_IN_REVIEW}`.
 
-### Jira
+Load `config/ticket-managers/ops.md` and run the **Move to In Review** operation for `{TM_TOOL}`.
 
-```bash
-acli jira --action transitionIssue --issue {TICKET_ID} --transition "{TM_IN_REVIEW}"
-```
-
-If the transition name fails, list available transitions and pick the one representing "awaiting review":
-
-```bash
-acli jira --action getTransitions --issue {TICKET_ID}
-```
-
-### Azure DevOps
-
-Call MCP `update_work_item` with `id: {TICKET_ID}` and `state: "{TM_IN_REVIEW}"`.
-
-Optionally add a comment linking the PR:
-
-**Jira:** `acli jira --action addComment --issue {TICKET_ID} --comment "PR opened: <PR URL>"`
-**Azure DevOps:** MCP `add_work_item_comment` with `text: "PR opened: <PR URL>"`
+Then run the **Add comment** operation with the PR URL as the comment text.
 
 ---
 

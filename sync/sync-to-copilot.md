@@ -76,21 +76,17 @@ This registers each skill as a named agent in Copilot CLI, accessible via:
 - `copilot --agent <skill-name>` from the terminal
 - `/agent` picker inside an interactive session
 
-Also update `~/.copilot/AGENTS.md` to embed all skills as named sections (kept as a fallback
-for tools that read AGENTS.md but do not support the agents directory):
+Also update `~/.copilot/AGENTS.md` with a lightweight index of all skills (name + description only).
+Do NOT embed full skill bodies — those live in `~/.copilot/agents/<name>.md`.
 
 ```markdown
 # Custom Skills
 
-These skills are always available. Invoke them by typing their name (e.g. `/review`).
+| Skill | Description |
+|---|---|
+| `/<skill-name>` | <description from frontmatter> |
 
----
-
-## /<skill-name>
-
-<description from frontmatter>
-
-<prompt body — verbatim>
+> Invoke via `copilot --agent <skill-name>` or the `/agent` picker in a session.
 ```
 
 Overwrite AGENTS.md entirely — do not append.

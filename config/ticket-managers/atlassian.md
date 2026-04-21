@@ -42,21 +42,6 @@ branch_type_map:
 
 ---
 
-## CLI reference
-
-All operations use the Atlassian CLI (`acli`). Install: `brew install acli`.
-
-| Operation | Command |
-|---|---|
-| Read ticket | `acli jira --action getIssue --issue {TICKET_ID}` |
-| Assign ticket | `acli jira --action assignIssue --issue {TICKET_ID} --userId {USERNAME}` |
-| List transitions | `acli jira --action getTransitions --issue {TICKET_ID}` |
-| Move to In Progress | `acli jira --action transitionIssue --issue {TICKET_ID} --transition "{in_progress_transition}"` |
-| Move to In Review | `acli jira --action transitionIssue --issue {TICKET_ID} --transition "{in_review_transition}"` |
-| Add comment | `acli jira --action addComment --issue {TICKET_ID} --comment "{TEXT}"` |
-
----
-
 ## Notes
 
 - Set `enabled: true` to activate. Only one ticket manager should be enabled at a time.
