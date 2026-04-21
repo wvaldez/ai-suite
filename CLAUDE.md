@@ -9,9 +9,21 @@ Provider-agnostic AI skill definitions. Skills are pure markdown prompts that wo
 ## Structure
 
 ```
-skills/   ← workflow skills (the actual capabilities)
-sync/     ← meta-skills that sync skills/ to other AI assistants
+skills/                        ← workflow skills (the actual capabilities)
+sync/                          ← meta-skills that sync skills/ to other AI assistants
+templates/                     ← reusable document templates referenced by skills (e.g. plan.md)
+config/                        ← configuration consumed by skills at runtime
+  copilot.md                   ← Copilot install scope settings
+  ticket-managers/
+    atlassian.md               ← Jira/acli config (set enabled: true to activate)
+    azure-devops.md            ← Azure DevOps MCP config (set enabled: true to activate)
 ```
+
+## Ticket manager configuration
+
+Skills that interact with a ticket system (e.g. `dev-start`) read `config/ticket-managers/` to determine which tool to use. Exactly one file should have `enabled: true` at a time. The enabled file provides all connection settings, state/transition names, and branch type mappings the skill needs — so the skill body stays tool-agnostic.
+
+To add a new ticket manager, create `config/ticket-managers/<name>.md` following the same structure as the existing files.
 
 ## Skill file format
 
