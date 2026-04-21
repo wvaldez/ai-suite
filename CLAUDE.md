@@ -1,0 +1,37 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Purpose
+
+Provider-agnostic AI skill definitions. Skills are pure markdown prompts that work with Claude Code. Sync skills in `sync/` translate them into the format expected by other AI coding assistants.
+
+## Structure
+
+```
+skills/   ← workflow skills (the actual capabilities)
+sync/     ← meta-skills that sync skills/ to other AI assistants
+```
+
+## Skill file format
+
+Every file in `skills/` must have this frontmatter:
+
+```markdown
+---
+name: skill-name
+description: One-line description of what the skill does
+---
+
+Prompt body here.
+```
+
+The body is a pure prompt — no provider-specific syntax.
+
+## Adding a new skill
+
+Create a `.md` file in `skills/` with the required frontmatter. Then run the relevant sync skill to propagate it to other assistants.
+
+## Adding a new AI assistant target
+
+Create a `sync/sync-to-<assistant>.md` file that describes how to read `skills/` and write the target format. Follow `sync/sync-to-copilot.md` as a reference.
