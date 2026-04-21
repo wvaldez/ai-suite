@@ -13,8 +13,8 @@ Sync every skill from this repo's `skills/` directory into a target project as G
 
 ```
 ---
-mode: 'agent'
 description: '<description value from the skill frontmatter>'
+agent: 'agent'
 ---
 
 <prompt body — everything after the frontmatter block, unchanged>
@@ -28,4 +28,4 @@ description: '<description value from the skill frontmatter>'
 
 - Only process files in `skills/`. Do not sync anything from `sync/`.
 - Preserve the prompt body exactly — do not rewrite, summarize, or add to it.
-- The `mode: 'agent'` frontmatter key is required by VS Code Copilot Chat for the file to appear as an agent prompt.
+- The `agent: 'agent'` frontmatter key is required by VS Code Copilot Chat for the file to appear as an agent prompt.
